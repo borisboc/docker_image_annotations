@@ -10,7 +10,7 @@ docker compose -f compose_local_files.yaml -p image_annotations up
 
 ## Usage
 
-Create a subfolder inside folder `local_images/` with the name of your project. E.g. `local_images/myproject`.
+Create a subfolder inside folder `local_images/` with the name of your project. E.g. `local_images/myproject`. Place your images within this folder.
 
 Open your web browser and log in label-studio.
 
