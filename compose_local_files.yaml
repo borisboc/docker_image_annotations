@@ -1,0 +1,18 @@
+services:
+  label_studio:
+    image: heartexlabs/label-studio:latest
+    container_name: label_studio
+    ports:
+      - 8080:8080
+    volumes:
+      - ./label_studio_data:/label-studio/data
+      - ./local_images:/home/local_images     
+    command: >      
+      bash -c "ls -lah /home
+      && export LABEL_STUDIO_LOCAL_FILES_SERVING_ENABLED=true
+      && export LABEL_STUDIO_LOCAL_FILES_DOCUMENT_ROOT=/home/local_images
+      && label-studio"
+
+volumes:
+  label_studio_data:
+  local_images:
