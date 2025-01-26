@@ -1,6 +1,10 @@
-# docker_image_annotations
+# Docker Image Annotations
 
-Create a docker container dedicated to image annotations based on [label-studio](https://labelstud.io/). Ongoing ...
+This repository is meant to help you create Docker containers dedicated to image annotations.
+Currently, this is based on :
+ * [label-studio](https://labelstud.io/)
+ 
+ Maybe some new features ongoing ...
 
 ## Installation / running the container
 
@@ -12,7 +16,8 @@ docker compose -f compose_local_files.yaml -p image_annotations up
 
 Create a subfolder inside folder `local_images/` with the name of your project. E.g. `local_images/myproject`. Place your images within this folder.
 
-Open your web browser and log in label-studio.
+Open your web browser and and go to URL : http://localhost:8080/.
+Then log in [label-studio](https://labelstud.io/)
 
 Create a project.
 
