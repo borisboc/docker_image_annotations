@@ -3,6 +3,7 @@
 This repository is meant to help you create Docker containers dedicated to image annotations.
 Currently, this is based on :
  * [label-studio](https://labelstud.io/)
+ * [fiftyone](https://docs.voxel51.com/index.html)
  
  Maybe some new features ongoing ...
 
