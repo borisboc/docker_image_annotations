@@ -1,18 +1,50 @@
 services:
+  #source :https://hub.docker.com/r/heartexlabs/label-studio
   label_studio:
     image: heartexlabs/label-studio:latest
-    container_name: label_studio
+    container_name: img_annotations_label_studio
+    env_file:
+      - path: ./label_studio.env
+      - path: ./label_studio_secrets.env
+        required: false
     ports:
       - 8080:8080
     volumes:
       - ./label_studio_data:/label-studio/data
       - ./local_images:/home/local_images     
+      - ./requirements:/home/requirements
     command: >      
       bash -c "ls -lah /home
-      && export LABEL_STUDIO_LOCAL_FILES_SERVING_ENABLED=true
-      && export LABEL_STUDIO_LOCAL_FILES_DOCUMENT_ROOT=/home/local_images
+      && python -m pip install -U pip
+      && pip install -r /home/requirements/pip_requirements_all.txt
       && label-studio"
+  
+  #source : https://hub.docker.com/r/voxel51/fiftyone
+  fiftyone:
+    image: voxel51/fiftyone:latest
+    container_name: img_annotations_fiftyone
+    env_file:
+      - path: ./fiftyone.env 
+      - path: ./fiftyone_secrets.env #set FIFTYONE_LABELSTUDIO_API_KEY in this file
+        required: false           
+    ports:
+      - 5151:5151
+    volumes:
+      - type: bind
+        source: ./fiftyone_data
+        target: /fiftyone
+      - ./local_images:/home/local_images
+      - ./requirements:/home/requirements
+    #command: ['python', '/usr/local/lib/python/dist-packages/fiftyone/server/main.py', '--port', '5151'] #<- BB20250126 : Don't do this (file not found)
+    command: >
+      bash -c "fiftyone plugins download https://github.com/voxel51/fiftyone-plugins --plugin-names @voxel51/annotation @voxel51/brain @voxel51/dashboard @voxel51/evaluation @voxel51/io @voxel51/indexes @voxel51/runs @voxel51/utils @voxel51/zoo
+      && ls -lah /home
+      && python -m pip install -U pip
+      && pip install -r /home/requirements/pip_requirements_all.txt
+      && pip install -r /home/requirements/pip_requirements_fiftyone.txt
+      && fiftyone app launch"
 
 volumes:
   label_studio_data:
   local_images:
+  fiftyone_data:

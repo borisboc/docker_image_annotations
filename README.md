@@ -24,7 +24,16 @@ Create a project.
 To import/sync your image folder, follow the instructions given in [label-studio local storage](https://labelstud.io/guide/storage.html#Set-up-connection-in-the-Label-Studio-UI-4). And pass the full `Absolute local path` as such : `/home/local_images/myproject`
 
 
+### Accessing a container, program with jupyter notebook
 
+You can use Visual Studio remote connexion on a `Dev Container`. Or `Docker Desktop`.
+Connect on the container you want to play with (let's say `img_annotations_fiftyone` ).
+Inside a container terminal, go to relevant folder. E.g. `/home/local_images/` , then type
+
+```
+jupyter notebook --ip 0.0.0.0 --no-browser --allow-root
+```
+Click on the link provided in the terminal output to start a notebook.
 
 
 
@@ -37,3 +46,9 @@ To import/sync your image folder, follow the instructions given in [label-studio
 [label-studio tuto import yolo annotations](https://labelstud.io/blog/tutorial-importing-local-yolo-pre-annotated-images-to-label-studio/)
 
 [label-studio local storage](https://labelstud.io/guide/storage.html#Set-up-connection-in-the-Label-Studio-UI-4)
+
+[Access Jupyter notebook running on Docker container](https://stackoverflow.com/questions/38830610/access-jupyter-notebook-running-on-docker-container)
+
+## TODOs
+
+Proper MongoDB server (in a container) for FiftyOne
