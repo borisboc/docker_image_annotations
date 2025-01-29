@@ -1,7 +1,5 @@
 FROM voxel51/fiftyone:latest
 
-WORKDIR /app
-
 # Copy requirements files
 COPY ./pip_requirements_fiftyone.txt ./
 
