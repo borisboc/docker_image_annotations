@@ -1,11 +1,12 @@
 services:
   #source :https://hub.docker.com/r/heartexlabs/label-studio
   label_studio:
-    image: heartexlabs/label-studio:latest
+    image: img_annotations/label_studio_with_deps
+    build: ./label_studio_image
     container_name: img_annotations_label_studio
     env_file:
-      - path: ./label_studio.env
-      - path: ./label_studio_secrets.env
+      - path: ./label_studio_image/label_studio.env
+      - path: ./label_studio_image/label_studio_secrets.env
         required: false
     ports:
       - 8080:8080
@@ -13,11 +14,6 @@ services:
       - ./label_studio_data:/label-studio/data
       - ./local_images:/home/local_images     
       - ./requirements:/home/requirements
-    command: >      
-      bash -c "ls -lah /home
-      && python -m pip install -U pip
-      && pip install -r /home/requirements/pip_requirements_all.txt
-      && label-studio"
   
   #source : https://hub.docker.com/r/voxel51/fiftyone
   fiftyone:
