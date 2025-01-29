@@ -21,11 +21,12 @@ services:
   
   #source : https://hub.docker.com/r/voxel51/fiftyone
   fiftyone:
-    image: voxel51/fiftyone:latest
+    image: img_annotations/fiftyone_with_deps
+    build: ./fiftyone_image
     container_name: img_annotations_fiftyone
     env_file:
-      - path: ./fiftyone.env 
-      - path: ./fiftyone_secrets.env #set FIFTYONE_LABELSTUDIO_API_KEY in this file
+      - path: ./fiftyone_image/fiftyone.env 
+      - path: ./fiftyone_image/fiftyone_secrets.env #set FIFTYONE_LABELSTUDIO_API_KEY in this file
         required: false           
     ports:
       - 5151:5151
@@ -35,14 +36,6 @@ services:
         target: /fiftyone
       - ./local_images:/home/local_images
       - ./requirements:/home/requirements
-    #command: ['python', '/usr/local/lib/python/dist-packages/fiftyone/server/main.py', '--port', '5151'] #<- BB20250126 : Don't do this (file not found)
-    command: >
-      bash -c "fiftyone plugins download https://github.com/voxel51/fiftyone-plugins --plugin-names @voxel51/annotation @voxel51/brain @voxel51/dashboard @voxel51/evaluation @voxel51/io @voxel51/indexes @voxel51/runs @voxel51/utils @voxel51/zoo
-      && ls -lah /home
-      && python -m pip install -U pip
-      && pip install -r /home/requirements/pip_requirements_all.txt
-      && pip install -r /home/requirements/pip_requirements_fiftyone.txt
-      && fiftyone app launch"
 
 volumes:
   label_studio_data:
