@@ -13,7 +13,6 @@ services:
     volumes:
       - ./label_studio_data:/label-studio/data
       - ./local_images:/home/local_images     
-      - ./requirements:/home/requirements
   
   #source : https://hub.docker.com/r/voxel51/fiftyone
   fiftyone:
@@ -31,7 +30,6 @@ services:
         source: ./fiftyone_data
         target: /fiftyone
       - ./local_images:/home/local_images
-      - ./requirements:/home/requirements
 
 volumes:
   label_studio_data:
