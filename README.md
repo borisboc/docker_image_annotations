@@ -7,22 +7,52 @@ Currently, this is based on :
  
  Maybe some new features ongoing ...
 
+## Requirements
+
+You must have [docker](https://docs.docker.com/get-started/) installed. E.g. install [docker desktop](https://docs.docker.com/get-started/get-docker/).
+
+
 ## Installation / running the container
+
+Start docker.
+
+Clone this repository :
+
+```
+git clone https://github.com/borisboc/docker_image_annotations.git && cd docker_image_annotations
+```
+
+Build and start the containers
 
 ```
 docker compose -f compose_local_files.yaml -p image_annotations up
 ```
 
+Open your web browser and and go to URL : http://localhost:8080/.
+Then log in [label-studio](https://labelstud.io/).
+
+Sign-up / create an account.
+
+Get your label-studio API KEY (acces token) by going to the `account & settings` page. Copy the `Access Token`, and paste it inside the file `fiftyone_image/fiftyone_secrets.env`
+
+```
+FIFTYONE_LABELSTUDIO_API_KEY: "PLEASE PASTE YOUR LABEL STUDIO ACCESS TOKEN HERE, WITHIN THE DOUBLE QUOTES"
+```
+
+Stop the containers (e.g. CTRL+C in the terminal you upped the containers, or using Docker Desktop).
+
+Restart the containers (see docker compose command above) so that FiftyOne environment is updated.
+
 ## Usage
 
 Create a subfolder inside folder `local_images/` with the name of your project. E.g. `local_images/myproject`. Place your images within this folder.
 
-Open your web browser and and go to URL : http://localhost:8080/.
-Then log in [label-studio](https://labelstud.io/)
+Open your web browser and and go to URL : http://localhost:5151/.
+to use the [FiftyOne App](https://docs.voxel51.com/user_guide/app.html).
 
-Create a project.
+You can then create a dataset.
 
-To import/sync your image folder, follow the instructions given in [label-studio local storage](https://labelstud.io/guide/storage.html#Set-up-connection-in-the-Label-Studio-UI-4). And pass the full `Absolute local path` as such : `/home/local_images/myproject`
+And then request for annotations with Label-Studio backend.
 
 
 ### Accessing a container, program with jupyter notebook
