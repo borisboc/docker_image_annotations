@@ -3,7 +3,7 @@ services:
   label_studio:
     image: img_annotations/label_studio_with_deps
     build: ./label_studio_image
-    container_name: img_annotations_label_studio
+    container_name: img-annotations-label-studio #use characters that are valid for URL. For instance, this example will FAIL : curl -X GET http://img_annotations_label_studio:8080/api/projects/ -H 'Authorization: Token $MYTOKEN'
     env_file:
       - path: ./label_studio_image/label_studio.env
       - path: ./label_studio_image/label_studio_secrets.env
@@ -18,7 +18,7 @@ services:
   fiftyone:
     image: img_annotations/fiftyone_with_deps
     build: ./fiftyone_image
-    container_name: img_annotations_fiftyone
+    container_name: img-annotations-fiftyone #use characters that are valid for URL. See remarks above
     env_file:
       - path: ./fiftyone_image/fiftyone.env 
       - path: ./fiftyone_image/fiftyone_secrets.env #set FIFTYONE_LABELSTUDIO_API_KEY in this file
