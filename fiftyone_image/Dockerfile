@@ -13,6 +13,10 @@ RUN pip3 install -r pip_requirements_fiftyone.txt
 
 RUN pip3 install -r pip_requirements_fiftyone_pytorch_cpu.txt
 
-RUN fiftyone plugins download https://github.com/voxel51/fiftyone-plugins --plugin-names @voxel51/annotation @voxel51/brain @voxel51/dashboard @voxel51/evaluation @voxel51/io @voxel51/indexes @voxel51/runs @voxel51/utils @voxel51/zoo
+RUN echo "before plugins installation"
+RUN /opt/.fiftyone-venv/bin/fiftyone plugins list
 
-CMD fiftyone app launch
+RUN /opt/.fiftyone-venv/bin/fiftyone plugins download https://github.com/voxel51/fiftyone-plugins --plugin-names @voxel51/annotation @voxel51/brain @voxel51/dashboard @voxel51/evaluation @voxel51/io @voxel51/indexes @voxel51/runs @voxel51/utils @voxel51/zoo
+
+RUN echo "after plugins installation"
+RUN /opt/.fiftyone-venv/bin/fiftyone plugins list
