@@ -20,9 +20,10 @@ services:
     build: ./fiftyone_image
     container_name: img-annotations-fiftyone #use characters that are valid for URL. See remarks above
     env_file:
-      - path: ./fiftyone_image/fiftyone.env 
       - path: ./fiftyone_image/fiftyone_secrets.env #set FIFTYONE_LABELSTUDIO_API_KEY in this file
-        required: false           
+      - path: ./fiftyone_image/fiftyone.env 
+    depends_on:
+      - mongodb             
     ports:
       - 5151:5151
     volumes:
@@ -30,8 +31,20 @@ services:
         source: ./fiftyone_data
         target: /fiftyone
       - ./local_images:/home/local_images
+  mongodb:
+    image: mongodb/mongodb-community-server:6.0.14-ubi9
+    container_name: img-annotations-mongodb #use characters that are valid for URL. See remarks above
+    env_file:
+      - path: ./fiftyone_image/fiftyone_secrets.env #set MONGO_INITDB_ROOT_USERNAME and MONGO_INITDB_ROOT_PASSWORD in this file
+    ports:
+      - 27017:27017
+    volumes:
+      - type: bind
+        source: ./mongodb_data
+        target: /data/db      
 
 volumes:
   label_studio_data:
   local_images:
   fiftyone_data:
+  mongodb_data:
