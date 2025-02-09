@@ -5,22 +5,22 @@ services:
     build: ./label_studio_image
     container_name: img-annotations-label-studio #use characters that are valid for URL. For instance, this example will FAIL : curl -X GET http://img_annotations_label_studio:8080/api/projects/ -H 'Authorization: Token $MYTOKEN'
     env_file:
+      - path: ./label_studio_image/label_studio_secrets.env #set LABELSTUDIO_API_KEY in this file
       - path: ./label_studio_image/label_studio.env
-      - path: ./label_studio_image/label_studio_secrets.env
-        required: false
     ports:
       - 8080:8080
     volumes:
       - ./label_studio_data:/label-studio/data
       - ./local_images:/home/local_images     
-  
+
   #source : https://hub.docker.com/r/voxel51/fiftyone
   fiftyone:
     image: img_annotations/fiftyone_with_deps
     build: ./fiftyone_image
     container_name: img-annotations-fiftyone #use characters that are valid for URL. See remarks above
     env_file:
-      - path: ./fiftyone_image/fiftyone_secrets.env #set FIFTYONE_LABELSTUDIO_API_KEY in this file
+      - path: ./label_studio_image/label_studio_secrets.env #set LABELSTUDIO_API_KEY in this file
+      - path: ./fiftyone_image/fiftyone_secrets.env
       - path: ./fiftyone_image/fiftyone.env 
     depends_on:
       - mongodb             
