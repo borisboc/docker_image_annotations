@@ -40,10 +40,10 @@ Then log in [label-studio](https://labelstud.io/).
 
 Sign-up / create an account.
 
-Get your label-studio API KEY (acces token) by going to the `account & settings` page. Copy the `Access Token`, and paste it inside the file `fiftyone_image/fiftyone_secrets.env`
+Get your label-studio API KEY (acces token) by going to the `account & settings` page. Copy the `Access Token`, and paste it inside the file `label_studio_image/label_studio_secrets.env`
 
 ```
-FIFTYONE_LABELSTUDIO_API_KEY="PLEASE PASTE YOUR LABEL STUDIO ACCESS TOKEN HERE, WITHIN THE DOUBLE QUOTES"
+LABELSTUDIO_API_KEY="PLEASE PASTE YOUR LABEL STUDIO ACCESS TOKEN HERE, WITHIN THE DOUBLE QUOTES"
 ```
 
 Stop the containers (e.g. CTRL+C in the terminal you upped the containers, or using Docker Desktop).
