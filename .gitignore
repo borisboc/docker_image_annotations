@@ -2,3 +2,4 @@ label_studio_data*
 local_images*
 fiftyone_data*
 mongodb_data*
+label_studio_sa2_data*

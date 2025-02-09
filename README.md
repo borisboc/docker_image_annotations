@@ -98,6 +98,20 @@ And then request for annotations with Label-Studio backend.
 
 TODO : finish this paragraph and add screenshots.
 
+### Using Segment Anything Model 2 during annotations
+
+During annotations on Label-Studio, if you need to annotate segmentation (e.g. semantic segmentation, or instance segmentation) you can use Segment Anything Model 2 ([SAM2](https://github.com/facebookresearch/sam2)) to generate you segmentations/masks from a provided seed on the image (which can be some keypoints, a brushed region, or a axis-aligend rectangle). The result of SAM2 will be `BrushLabel`.
+
+You can find a [youtube video tutorial](https://youtu.be/FTg8P8z4RgY?feature=shared) from Label Studio, to show you how to use SAM2.
+
+Concerning the configuration in the menu `Settings > Model`, in our case, please set the following Backend URL : 
+
+```
+http://img-annotations-sa2-label-studio:9090
+```
+
+For further details, please refere to [label-studio-ml-backend github : using sam2](https://github.com/HumanSignal/label-studio-ml-backend/tree/master/label_studio_ml/examples/segment_anything_2_image#using-sam2-with-label-studio-for-image-annotation)
+
 ### Connect another instance of FiftyOne to the same database
 
 TODO : finish this paragraph and add screenshots.
@@ -126,6 +140,8 @@ Click on the link provided in the terminal output to start a notebook.
 
 [label-studio local storage](https://labelstud.io/guide/storage.html#Set-up-connection-in-the-Label-Studio-UI-4)
 
+[label-studio-ml-backend github : using sam2](https://github.com/HumanSignal/label-studio-ml-backend/tree/master/label_studio_ml/examples/segment_anything_2_image#using-sam2-with-label-studio-for-image-annotation)
+
 [Access Jupyter notebook running on Docker container](https://stackoverflow.com/questions/38830610/access-jupyter-notebook-running-on-docker-container)
 
 [FiftyOne on dockerhub](https://hub.docker.com/r/voxel51/fiftyone)
@@ -135,6 +151,7 @@ Click on the link provided in the terminal output to start a notebook.
 [FiftyOne : Using the FiftyOne App](https://docs.voxel51.com/user_guide/app.html)
 
 [Docker and MongoDB](https://www.mongodb.com/resources/products/compatibilities/docker)
+
 
 ## TODOs
 
