@@ -2,16 +2,28 @@
 
 This repository is meant to help you create Docker containers dedicated to image annotations.
 Currently, this is based on :
- * [label-studio](https://labelstud.io/)
  * [fiftyone](https://docs.voxel51.com/index.html)
+ * [label-studio](https://labelstud.io/)
  * [Segment Anything Model 2 (SAM2)](https://github.com/facebookresearch/sam2)
  
- Maybe some new features ongoing ...
 
-## Requirements
+## Requirements & some important remarks
 
-You must have [docker](https://docs.docker.com/get-started/) installed. E.g. install [docker desktop](https://docs.docker.com/get-started/get-docker/).
+You must have [docker](https://docs.docker.com/get-started/) installed. 
 
+Please note that if you installed and use [docker desktop](https://docs.docker.com/get-started/get-docker/), it starts with a context called `desktop-linux`. In this context, you can have access to GPU only with sudo privilege.
+
+If you don't want to run with privilege, you must run [docker in rootless mode](https://docs.docker.com/engine/security/rootless/). In this case, you can switch to rootless context by running
+
+`docker context use rootless`  
+
+If you want the containers to have access to the NVIDIA GPUs please follow the instructions given in [docker : Access an NVIDIA GPU](https://docs.docker.com/engine/containers/resource_constraints/#gpu). Briefly, you will have to install NVIDIA driver and NVIDIA container toolkit. Once done, you should be able to successfully run the following command : 
+
+`docker run --rm --runtime=nvidia --gpus all ubuntu nvidia-smi`
+
+If you need sudo privilege for this command, please read the remark above (same paragraph). 
+
+If you run with rootless privilege, all the folders (volumes) that will be created with the containers (e.g. `fiftyone_data`, `label_studio_data` etc.) will NOT be owned by your current user. Which may be anoying for some usage. In this case, you may `chmod -R g+w` each folder.
 
 ## Installation / running the container
 
@@ -25,8 +37,8 @@ git clone https://github.com/borisboc/docker_image_annotations.git && cd docker_
 
 Edit the file `fiftyone_image/fiftyone_secrets.env`. Change the values of the 2 environment variables : 
 ```
-MONGO_INITDB_ROOT_USERNAME
-MONGO_INITDB_ROOT_PASSWORD
+MONGO_INITDB_ROOT_USERNAME=YourMongoDbUsernameHere
+MONGO_INITDB_ROOT_PASSWORD=YourMongoDbPasswordHere
 ```
 In order to set a proper user name and password for the MongoDB database (used by FiftyOne).
 
@@ -157,6 +169,8 @@ Click on the link provided in the terminal output to start a notebook.
 [FiftyOne : Using the FiftyOne App](https://docs.voxel51.com/user_guide/app.html)
 
 [Docker and MongoDB](https://www.mongodb.com/resources/products/compatibilities/docker)
+
+[docker : Access an NVIDIA GPU](https://docs.docker.com/engine/containers/resource_constraints/#gpu)
 
 
 ## TODOs
