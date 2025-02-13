@@ -4,6 +4,7 @@ This repository is meant to help you create Docker containers dedicated to image
 Currently, this is based on :
  * [label-studio](https://labelstud.io/)
  * [fiftyone](https://docs.voxel51.com/index.html)
+ * [Segment Anything Model 2 (SAM2)](https://github.com/facebookresearch/sam2)
  
  Maybe some new features ongoing ...
 
@@ -31,9 +32,10 @@ In order to set a proper user name and password for the MongoDB database (used b
 
 Build and start the containers with the following command : 
 
-```
-docker compose -f compose_local_files.yaml -p image_annotations up --build
-```
+ * If you have GPU access : 
+   * `./start_gpu.sh`
+ * Otherwise, for CPU : 
+   * `./start_cpu.sh` 
 
 Open your web browser and and go to URL : http://localhost:8080/.
 Then log in [label-studio](https://labelstud.io/).
@@ -55,9 +57,13 @@ Restart the containers (see docker compose command above) so that FiftyOne envir
 Start docker.
 
 Start the containers with the following commands : 
-```
-docker compose -f compose_local_files.yaml -p image_annotations up
-```
+
+Build and start the containers with the following command : 
+
+ * If you have GPU access : 
+   * `./start_gpu.sh`
+ * Otherwise, for CPU : 
+   * `./start_cpu.sh` 
 
 Or restart it from docker desktop, as you prefere.
 

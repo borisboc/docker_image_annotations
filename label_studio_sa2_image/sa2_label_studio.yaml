@@ -1,0 +1,13 @@
+services:
+
+  # source : https://github.com/HumanSignal/label-studio-ml-backend/blob/master/label_studio_ml/examples/segment_anything_2_image/docker-compose.yml
+  sa2_label_studio:
+    image: img_annotations/sa2_label_studio
+    build: ../label_studio_sa2_image
+    env_file:
+      - path: ../label_studio_image/label_studio_secrets.env #set LABELSTUDIO_API_KEY in this file
+      - path: ../label_studio_sa2_image/sa2_label_studio.env      
+    ports:
+      - 9090:9090
+    volumes:
+      - "../label_studio_sa2_data:/data"
