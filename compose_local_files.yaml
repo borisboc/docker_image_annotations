@@ -27,6 +27,13 @@ services:
       - 9090:9090
     volumes:
       - "./label_studio_sa2_data:/data"
+    deploy:
+      resources:
+        reservations:
+          devices:
+            - driver: nvidia
+              count: all
+              capabilities: [gpu]
 
   #source : https://hub.docker.com/r/voxel51/fiftyone
   fiftyone:
@@ -46,8 +53,9 @@ services:
         source: ./fiftyone_data
         target: /fiftyone
       - ./local_images:/home/local_images
+
   mongodb:
-    image: mongodb/mongodb-community-server:6.0.14-ubi9
+    image: mongo
     container_name: img-annotations-mongodb #use characters that are valid for URL. See remarks above
     env_file:
       - path: ./fiftyone_image/fiftyone_secrets.env #set MONGO_INITDB_ROOT_USERNAME and MONGO_INITDB_ROOT_PASSWORD in this file
