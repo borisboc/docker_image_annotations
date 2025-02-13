@@ -1,0 +1,17 @@
+  services:
+
+    fiftyone:
+      image: img_annotations/fiftyone_with_deps
+      build:
+        context: ../fiftyone_image
+        args:
+          BUILD_PROFILE: ${IMG_ANNOTATIONS_BUILD_PROFILE}
+      env_file:
+        - path: ../label_studio_image/label_studio_secrets.env #set LABELSTUDIO_API_KEY in this file
+        - path: ../fiftyone_image/fiftyone_secrets.env
+        - path: ../fiftyone_image/fiftyone.env 
+      ports:
+        - 5151:5151
+      volumes:
+        - ../fiftyone_data:/fiftyone
+        - ../local_images:/home/local_images

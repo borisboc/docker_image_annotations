@@ -2,7 +2,8 @@ services:
   #source :https://hub.docker.com/r/heartexlabs/label-studio
   label_studio:
     image: img_annotations/label_studio_with_deps
-    build: ./label_studio_image
+    build: 
+      context: ./label_studio_image
     container_name: img-annotations-label-studio #use characters that are valid for URL. For instance, this example will FAIL : curl -X GET http://img_annotations_label_studio:8080/api/projects/ -H 'Authorization: Token $MYTOKEN'
     env_file:
       - path: ./label_studio_image/label_studio_secrets.env #set LABELSTUDIO_API_KEY in this file
@@ -38,24 +39,26 @@ services:
               count: all
               capabilities: [gpu]
 
-  #source : https://hub.docker.com/r/voxel51/fiftyone
-  fiftyone:
-    image: img_annotations/fiftyone_with_deps
-    build: ./fiftyone_image
+  fiftyone_cpu:
+    profiles: [cpu]
     container_name: img-annotations-fiftyone #use characters that are valid for URL. See remarks above
-    env_file:
-      - path: ./label_studio_image/label_studio_secrets.env #set LABELSTUDIO_API_KEY in this file
-      - path: ./fiftyone_image/fiftyone_secrets.env
-      - path: ./fiftyone_image/fiftyone.env 
-    depends_on:
-      - mongodb             
-    ports:
-      - 5151:5151
-    volumes:
-      - type: bind
-        source: ./fiftyone_data
-        target: /fiftyone
-      - ./local_images:/home/local_images
+    extends:
+      file: fiftyone_image/fiftyone_compose.yaml
+      service: fiftyone
+
+  fiftyone_gpu:
+    profiles: [gpu]
+    container_name: img-annotations-fiftyone #use characters that are valid for URL. See remarks above
+    extends:
+      file: fiftyone_image/fiftyone_compose.yaml
+      service: fiftyone
+    deploy:
+      resources:
+        reservations:
+          devices:
+            - driver: nvidia
+              count: all
+              capabilities: [gpu]      
 
   mongodb:
     image: mongo
