@@ -1,2 +1,3 @@
 label-studio-sdk
+opencv-python
 jupyter
