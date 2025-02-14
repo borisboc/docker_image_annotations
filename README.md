@@ -137,6 +137,18 @@ TODO : finish this paragraph and add screenshots.
 
 ### Accessing a container, program with jupyter notebook
 
+#### For label-studio container
+
+To start a jupyter notebook server on the label-studio container, simply start a new terminal and run : 
+
+```
+./jupyter_label_studio.sh
+```
+
+You will see the URL with the AUTH token printed in the console. Go to this URL on the web browser to work with jupyter notebook. For instance, you may want to use the scripts that are in `PythonUtils/` folder.
+
+#### For other containers
+
 You can use Visual Studio remote connexion on a `Dev Container`. Or `Docker Desktop`.
 Connect on the container you want to play with (let's say `img_annotations_fiftyone` ).
 Inside a container terminal, go to relevant folder. E.g. `/home/local_images/` , then type
