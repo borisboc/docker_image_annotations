@@ -3,3 +3,4 @@ local_images*
 fiftyone_data*
 mongodb_data*
 label_studio_sa2_data*
+*.ipynb_checkpoints
