@@ -1,5 +1,5 @@
-notebook
 label_studio_sdk
 label_studio_converter
 umap-learn>=0.5
 pycocotools
+jupyter

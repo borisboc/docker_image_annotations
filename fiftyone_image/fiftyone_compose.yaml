@@ -12,6 +12,8 @@
         - path: ../fiftyone_image/fiftyone.env 
       ports:
         - 5151:5151
+        - 5152:5152 #for the jupyter notebook running in this container      
       volumes:
         - ../fiftyone_data:/fiftyone
         - ../local_images:/home/local_images
+        - ./PythonUtils:/home/PythonUtils

@@ -147,6 +147,15 @@ To start a jupyter notebook server on the label-studio container, simply start a
 
 You will see the URL with the AUTH token printed in the console. Go to this URL on the web browser to work with jupyter notebook. For instance, you may want to use the scripts that are in `PythonUtils/` folder.
 
+#### For fiftyone container
+
+Same as for label-studio container, but instead you may run :
+
+```
+./jupyter_fiftyone.sh
+```
+
+
 #### For other containers
 
 You can use Visual Studio remote connexion on a `Dev Container`. Or `Docker Desktop`.
