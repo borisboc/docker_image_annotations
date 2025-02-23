@@ -132,8 +132,39 @@ For further details, please refere to [label-studio-ml-backend github : using sa
 
 ### Connect another instance of FiftyOne to the same database
 
-TODO : finish this paragraph and add screenshots.
+Because the MongoDB database used by FiftyOne runs in its own container, and ports are bound, it is fine to connect another instance of FifytOne to this database. The typical usecase is that you develop a neural network on your host machine, or inside another container, and you want to access the samples in one of your FiftyOne dataset.
 
+Do do so, in the session running your own FiftyOne instance, you can either modify the fiftyone congiguration json file, or declare the environment variable `FIFTYONE_DATABASE_URI`, which is the prefered option explained bellow.
+
+In your session, please export : 
+
+```
+export FIFTYONE_DATABASE_URI=mongodb://YourMongoDbUsernameHere:YourMongoDbPasswordHere@127.0.0.1:27017
+```
+
+Please set the correct values for your mongodb username and password. They must match the content in file [fiftyone_image/fiftyone_secrets.env](fiftyone_image/fiftyone_secrets.env)
+
+
+Once exported, you can run all your python codes with FifytOne and access the FifytOne datasets. E.g. :
+
+``` python
+import fiftyone as fo
+ds = fo.load_dataset("NameOfYouDatasetHere")
+```
+
+A convenient way is to save this command with the correct connection details within a `.sh`file. And you can `source` this file.
+
+<br/>
+
+If your FiftyOne session is within another container of the same docker compose (e.g. you have edited your own docker compose file instead of `compose_local_files.yaml`), within your own container, please use the mongodb container name. E.g. :
+
+```
+export FIFTYONE_DATABASE_URI=mongodb://YourMongoDbUsernameHere:YourMongoDbPasswordHere@img-annotations-mongodb:27017
+```
+
+This is what is done in file [fiftyone_image/fiftyone.env](fiftyone_image/fiftyone.env)
+
+For further details, please refere to [FiftyOne : configuring mongodb connection](https://docs.voxel51.com/user_guide/config.html#configuring-mongodb-connection).
 
 ### Accessing a container, program with jupyter notebook
 
@@ -188,6 +219,8 @@ Click on the link provided in the terminal output to start a notebook.
 [FiftyOne : Loading data into FiftyOne](https://docs.voxel51.com/user_guide/dataset_creation/index.html#)
 
 [FiftyOne : Using the FiftyOne App](https://docs.voxel51.com/user_guide/app.html)
+
+[FiftyOne : configuring mongodb connection](https://docs.voxel51.com/user_guide/config.html#configuring-mongodb-connection)
 
 [Docker and MongoDB](https://www.mongodb.com/resources/products/compatibilities/docker)
 
