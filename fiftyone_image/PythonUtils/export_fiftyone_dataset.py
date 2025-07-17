@@ -55,7 +55,7 @@ def export_fiftyone_dataset(
 if __name__ == "__main__":
 
     parser = argparse.ArgumentParser(
-        description="Export a fiftyone dataset to a folder, using the fifytone formats (see o.types.FiftyOneDataset)"
+        description="Export a fiftyone dataset to a folder, using the fiftyone formats (see o.types.FiftyOneDataset)"
     )
     parser.add_argument(
         "dataset_name",
