@@ -1,7 +1,6 @@
 import fiftyone as fo
 import tempfile
 from pathlib import Path
-import sys
 import py7zr
 import shutil
 import argparse
