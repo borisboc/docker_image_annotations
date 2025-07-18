@@ -3,3 +3,4 @@ label_studio_converter
 umap-learn>=0.5
 pycocotools
 jupyter
+py7zr
