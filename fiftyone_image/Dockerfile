@@ -6,6 +6,11 @@ ENV BUILD_PROFILE=${BUILD_PROFILE}
 # Copy requirements files
 COPY ./pip_requirements_fiftyone*.txt ./
 
+# CURL for testing API with label studio
+RUN apt-get update && apt-get install -y --no-install-recommends \
+    curl \
+    && rm -rf /var/lib/apt/lists/*
+
 #In 20250208, it looks necessary to update fiftyone because current release is v1.3.0 but Docker image has version v1.2.0  
 RUN /opt/.fiftyone-venv/bin/pip3 install --upgrade pip \
   && /opt/.fiftyone-venv/bin/pip3 install --upgrade fiftyone \
