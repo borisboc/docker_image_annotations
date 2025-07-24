@@ -68,7 +68,9 @@ Then log in [label-studio](https://labelstud.io/).
 
 Sign-up / create an account.
 
-Get your label-studio API KEY (acces token) by going to the `account & settings` page. Copy the `Access Token`, and paste it inside the file `label_studio_image/label_studio_secrets.env`
+Get your label-studio API KEY (acces token). Somewhere in 2025, Label Studio have changed their authorization / tokens methods. But FiftyOne still uses the old method.<br>
+So you first need to go to `Organization > API Tokens Settings` and activate `Legacy Tokens`. <br>
+Then go to your `account & settings` page, go to `Legacy Token` section and copy the `Access Token`, and paste it inside the file [label_studio_image/label_studio_secrets.env](label_studio_image/label_studio_secrets.env)
 
 ```
 LABELSTUDIO_API_KEY="PLEASE PASTE YOUR LABEL STUDIO ACCESS TOKEN HERE, WITHIN THE DOUBLE QUOTES"
@@ -127,6 +129,8 @@ Then press execute.
 From now you have a dataset created, and some samples. You can see the subparagraphs of this readme depending on what you want to do next.
 
 ### Workflow for annotations
+
+CAUTION : annotation name (also call `anno_key`) cannot start with numbers ! E.g. `20250724_ann_key` is **NOT** valid !
 
 And then request for annotations with Label-Studio backend.
 
