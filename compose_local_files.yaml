@@ -14,7 +14,9 @@ services:
     volumes:
       - ./label_studio_data:/label-studio/data
       - ./label_studio_image/PythonUtils:/label-studio/PythonUtils
-      - ./local_images:/home/local_images     
+      - ./local_images:/home/local_images
+    networks:
+      - img_annotations_network         
 
   sa2_label_studio_cpu:
     profiles: [cpu]
@@ -22,6 +24,8 @@ services:
     extends:
       file: label_studio_sa2_image/sa2_label_studio.yaml
       service: sa2_label_studio
+    networks:
+      - img_annotations_network      
     environment:
       - DEVICE=cpu
 
@@ -31,6 +35,8 @@ services:
     extends:
       file: label_studio_sa2_image/sa2_label_studio.yaml
       service: sa2_label_studio
+    networks:
+      - img_annotations_network      
     environment:
       - DEVICE=cuda      
     deploy:
@@ -47,6 +53,8 @@ services:
     extends:
       file: fiftyone_image/fiftyone_compose.yaml
       service: fiftyone
+    networks:
+      - img_annotations_network
 
   fiftyone_gpu:
     profiles: [gpu]
@@ -54,6 +62,8 @@ services:
     extends:
       file: fiftyone_image/fiftyone_compose.yaml
       service: fiftyone
+    networks:
+      - img_annotations_network      
     deploy:
       resources:
         reservations:
@@ -72,7 +82,9 @@ services:
     volumes:
       - type: bind
         source: ./mongodb_data
-        target: /data/db      
+        target: /data/db   
+    networks:
+      - img_annotations_network
 
 volumes:
   label_studio_data:
@@ -80,3 +92,8 @@ volumes:
   local_images:
   fiftyone_data:
   mongodb_data:
+
+networks:
+  img_annotations_network:
+    name: img_annotations_network  # Explicit name so that you can connect other containers on this network
+    driver: bridge
