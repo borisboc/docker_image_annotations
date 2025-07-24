@@ -17,3 +17,4 @@
         - ../fiftyone_data:/fiftyone
         - ../local_images:/home/local_images
         - ./PythonUtils:/home/PythonUtils
+      command: python -m fiftyone.server.main --port 5151
