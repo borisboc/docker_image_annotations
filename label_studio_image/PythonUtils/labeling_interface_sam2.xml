@@ -1,0 +1,48 @@
+<View>
+    <Style>
+        .main {
+        font-family: Arial, sans-serif;
+        background-color: #f5f5f5;
+        margin: 0;
+        padding: 5px;
+        }
+        .container {
+        display: flex;
+        justify-content: space-between;
+        margin-bottom: 5px;
+        }
+        .column {
+        flex: 1;
+        padding: 5px;
+        background-color: #fff;
+        border-radius: 5px;
+        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        text-align: center;
+        }
+    </Style>
+    <Image name="image" value="$image" />
+    <View className="main">
+        <View className="container">
+            <View className="column">
+                <Text name="TextGtLabels" value="Ground truth labels" />
+                <!-- PASTE YOUR PROJECT LABEL HERE (e.g. BrushLabels) -->
+            </View>
+            <View className="column">
+                <Text name="TextUseKP" value="Preannotate with Keypoint" />
+                <KeyPointLabels name="KplPreannotate" toName="image" smart="true">
+                    <!-- CHANGE THE LABEL NAMES SO THAT IT MATCHES YOUR GROUND TRUTHS -->
+                    <Label value="LABEL1" background="#250dd3" />
+                    <Label value="LABEL2" background="#250dd3" />
+                </KeyPointLabels>
+            </View>
+            <View className="column">
+                <Text name="TextUseRect" value="Preannotate with Rectangle" />
+                <RectangleLabels name="RlPreannotate" toName="image" smart="true">
+                    <!-- CHANGE THE LABEL NAMES SO THAT IT MATCHES YOUR GROUND TRUTHS -->
+                    <Label value="LABEL1" background="#FFC069" />
+                    <Label value="LABEL2" background="#FFC069" />
+                </RectangleLabels>
+            </View>
+        </View>
+    </View>
+</View>

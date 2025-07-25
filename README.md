@@ -148,7 +148,13 @@ Concerning the configuration in the menu `Settings > Model`, in our case, please
 http://img-annotations-sa2-label-studio:9090
 ```
 
+And toogle ON the parameter `Interactive preannotations`.
+
 For further details, please refere to [label-studio-ml-backend github : using sam2](https://github.com/HumanSignal/label-studio-ml-backend/tree/master/label_studio_ml/examples/segment_anything_2_image#using-sam2-with-label-studio-for-image-annotation)
+
+Remark : for keypoints, add a "bellong to" point with left click, and a "does not bellong to" with ALT + left click. 
+
+For the labeling interface, you use SAM2 with keypoints or rectangle, you can base it on the example in [labeling_interface_sam2.xml](label_studio_image/PythonUtils/labeling_interface_sam2.xml)
 
 ### Connect another instance of FiftyOne to the same database
 
