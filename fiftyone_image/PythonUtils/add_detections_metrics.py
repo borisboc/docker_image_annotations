@@ -98,10 +98,9 @@ def _compute_add_bbox_metrics(
     bbox_center_row = view.values(
         (
             F(f"{detection_field_name}.detections.bounding_box")[1]
-            + F(f"{detection_field_name}.detections.bounding_box")[3]
-            * 0.5
-            * height_scale
+            + F(f"{detection_field_name}.detections.bounding_box")[3] * 0.5
         )
+        * height_scale
     )
 
     # useful to check if bounding box is touching / very close to top border of image
