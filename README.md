@@ -154,7 +154,7 @@ For further details, please refere to [label-studio-ml-backend github : using sa
 
 Remark : for keypoints, add a "bellong to" point with left click, and a "does not bellong to" with ALT + left click. 
 
-For the labeling interface, you use SAM2 with keypoints or rectangle, you can base it on the example in [labeling_interface_sam2.xml](label_studio_image/PythonUtils/labeling_interface_sam2.xml)
+For the labeling interface, you use SAM2 with keypoints or rectangle, you can base it on the example in [labeling_interface_sam2.xml](PythonUtils/labeling_interface_sam2.xml)
 
 ### Connect another instance of FiftyOne to the same database
 

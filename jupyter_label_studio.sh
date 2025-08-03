@@ -1,1 +1,1 @@
-docker exec -it img-annotations-label-studio jupyter notebook --ip 0.0.0.0 --port 8081 --no-browser --allow-root
+docker exec -it img-annotations-label-studio jupyter notebook --ip 0.0.0.0 --port 8081 --no-browser --allow-root --notebook-dir=/home

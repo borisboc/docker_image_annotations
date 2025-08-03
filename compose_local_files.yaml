@@ -13,7 +13,7 @@ services:
       - 8081:8081 #for the jupyter notebook running in this container      
     volumes:
       - ./label_studio_data:/label-studio/data
-      - ./label_studio_image/PythonUtils:/label-studio/PythonUtils
+      - ./PythonUtils:/home/PythonUtils
       - ./local_images:/home/local_images
     networks:
       - img_annotations_network         
