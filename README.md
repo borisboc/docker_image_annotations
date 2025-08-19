@@ -42,12 +42,52 @@ MONGO_INITDB_ROOT_PASSWORD=YourMongoDbPasswordHere
 ```
 In order to set a proper user name and password for the MongoDB database (used by FiftyOne). Please do **NOT** use the `@` symbol (for both username and password).
 
+### Method 1: Traditional approach using shell scripts (.sh files)
+
+For users who prefer the simple, straightforward approach, you can continue using the existing shell scripts:
+
 Build and start the containers with the following command : 
 
  * If you have GPU access : 
    * `./start_gpu.sh`
  * Otherwise, for CPU : 
    * `./start_cpu.sh` 
+
+If you use Windows, you can execute the shell scripts using GitBash.
+
+### Method 2: Modern approach using Python script (config_manager.py)
+
+The `config_manager.py` script provides a more flexible approach to manage configurations. It allows you to combine different parameters without having to create a script file for each configuration.
+
+**Basic usage:**
+```bash
+# CPU configuration
+python config_manager.py --profile cpu
+
+# GPU configuration
+python config_manager.py --profile gpu
+```
+
+**Advanced options:**
+```bash
+# Use a different compose file
+python config_manager.py --compose-file compose_local_files.yaml --profile gpu
+
+# Add custom environment variables
+python config_manager.py --profile cpu --env-var "CUSTOM_MOUNT=/path/to/data"
+
+# Pass additional arguments to docker compose (like --build)
+python config_manager.py --profile cpu --extra-args --build
+
+# List available profiles in the compose file
+python config_manager.py --list-profiles
+```
+
+**Advantages of the Python method:**
+- More flexible: Combine different parameters without creating new scripts
+- Cross-platform: Works on Linux, Windows, and macOS
+- Extensible: Easy to add new parameters
+- Modular: Handles different compose files and profiles
 
 If you use Windows, you can execute the shell scripts using GitBash.
 
