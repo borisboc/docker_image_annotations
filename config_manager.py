@@ -43,7 +43,7 @@ def cleanup_containers(container_names):
         except Exception as e:
             print(f"Warning: Could not remove container {container}: {e}")
 
-def run_configuration(profile, compose_file, project_name, extra_env=None):
+def run_configuration(profile, compose_file, project_name, extra_env=None, extra_args=None):
     """
     Run the specified configuration
     
@@ -52,6 +52,7 @@ def run_configuration(profile, compose_file, project_name, extra_env=None):
         compose_file (str): Docker-compose file to use
         project_name (str): Docker project name
         extra_env (dict): Additional environment variables
+        extra_args (list): Additional arguments to append to the docker compose command
     """
     # Containers to clean up before starting
     containers_to_clean = [
@@ -80,6 +81,10 @@ def run_configuration(profile, compose_file, project_name, extra_env=None):
         '-p', project_name,
         'up'
     ]
+    
+    # Add extra arguments if provided
+    if extra_args:
+        cmd.extend(extra_args)
     
     print(f"Starting with profile '{profile}' using {compose_file}")
     print(f"Command: {' '.join(cmd)}")
@@ -123,6 +128,11 @@ def main():
                        metavar='KEY=VALUE',
                        help='Additional environment variables')
     
+    # Additional docker compose arguments
+    parser.add_argument('--extra-args', '-a',
+                       nargs=argparse.REMAINDER,
+                       help='Additional arguments to pass to docker compose (everything after -- will be passed through)')
+    
     args = parser.parse_args()
     
     # List profiles if requested
@@ -141,8 +151,11 @@ def main():
                 key, value = env_var.split('=', 1)
                 extra_env[key] = value
     
+    # Get extra arguments
+    extra_args = args.extra_args if args.extra_args else []
+    
     # Run the selected configuration
-    run_configuration(args.profile, args.compose_file, args.project, extra_env)
+    run_configuration(args.profile, args.compose_file, args.project, extra_env, extra_args)
 
 if __name__ == '__main__':
     main()
