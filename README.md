@@ -25,7 +25,7 @@ If you need sudo privilege for this command, please read the remark above (same 
 
 If you run with rootless privilege, all the folders (volumes) that will be created with the containers (e.g. `fiftyone_data`, `label_studio_data` etc.) will NOT be owned by your current user. Which may be anoying for some usage. In this case, you may `chmod -R g+w` each folder.
 
-## Installation / running the container
+## Installation
 
 Start docker.
 
@@ -42,16 +42,66 @@ MONGO_INITDB_ROOT_PASSWORD=YourMongoDbPasswordHere
 ```
 In order to set a proper user name and password for the MongoDB database (used by FiftyOne). Please do **NOT** use the `@` symbol (for both username and password).
 
+
+Build and start the containers with the following command : 
+
+ * If you have GPU access : 
+   * `./start_gpu.sh --build`
+ * Otherwise, for CPU : 
+   * `./start_cpu.sh --build` 
+
+If you use Windows, you can execute the shell scripts using GitBash.
+
+Check that the fiftyone plugins are installed. Sometimes, they are not and currently I can't say why. See this [issue](https://github.com/borisboc/docker_image_annotations/issues/1).
+
+```bash
+docker exec -it img-annotations-fiftyone fiftyone plugins list
+```
+
+If you don't see the plugins in the output (e.g. @voxel51/io @voxel51/annotation etc.), please run
+
+```bash
+docker exec -it img-annotations-fiftyone fiftyone plugins download https://github.com/voxel51/fiftyone-plugins --plugin-names @voxel51/annotation @voxel51/brain @voxel51/dashboard @voxel51/evaluation @voxel51/io @voxel51/indexes @voxel51/runs @voxel51/utils @voxel51/zoo
+```
+
+Open your web browser and and go to URL : http://localhost:8080/.
+Then log in [label-studio](https://labelstud.io/).
+
+Sign-up / create an account.
+
+Get your label-studio API KEY (acces token). Somewhere in 2025, Label Studio have changed their authorization / tokens methods. But FiftyOne still uses the old method.<br>
+So you first need to go to `Organization > API Tokens Settings` and activate `Legacy Tokens`. <br>
+Then go to your `account & settings` page, go to `Legacy Token` section and copy the `Access Token`, and paste it inside the file [label_studio_image/label_studio_secrets.env](label_studio_image/label_studio_secrets.env)
+
+```
+LABELSTUDIO_API_KEY="PLEASE PASTE YOUR LABEL STUDIO ACCESS TOKEN HERE, WITHIN THE DOUBLE QUOTES"
+```
+
+Stop the containers (e.g. CTRL+C in the terminal you upped the containers, or using Docker Desktop).
+
+Restart the containers (see docker compose command above) so that FiftyOne environment is updated.
+
+## Usage : starting the docker compose
+
+Please make sure that installation is done. See dedicated paragraph above.
+
+Start docker.
+
+Then choose one of the following method.
+
+
 ### Method 1: Traditional approach using shell scripts (.sh files)
 
 For users who prefer the simple, straightforward approach, you can continue using the existing shell scripts:
 
-Build and start the containers with the following command : 
+Start the containers with the following command : 
 
  * If you have GPU access : 
    * `./start_gpu.sh`
  * Otherwise, for CPU : 
    * `./start_cpu.sh` 
+
+You can pass extra arguments for docker, for instance : `./start_gpu.sh --build`.
 
 If you use Windows, you can execute the shell scripts using GitBash.
 
@@ -89,58 +139,15 @@ python config_manager.py --list-profiles
 - Extensible: Easy to add new parameters
 - Modular: Handles different compose files and profiles
 
-If you use Windows, you can execute the shell scripts using GitBash.
 
-Check that the fiftyone plugins are installed. Sometimes, they are not and currently I can't say why. See this [issue](https://github.com/borisboc/docker_image_annotations/issues/1).
 
-```bash
-docker exec -it img-annotations-fiftyone fiftyone plugins list
-```
+## Usage : how to use the different services
 
-If you don't see the plugins in the output (e.g. @voxel51/io @voxel51/annotation etc.), please run
-
-```bash
-docker exec -it img-annotations-fiftyone fiftyone plugins download https://github.com/voxel51/fiftyone-plugins --plugin-names @voxel51/annotation @voxel51/brain @voxel51/dashboard @voxel51/evaluation @voxel51/io @voxel51/indexes @voxel51/runs @voxel51/utils @voxel51/zoo
-```
-
-Open your web browser and and go to URL : http://localhost:8080/.
-Then log in [label-studio](https://labelstud.io/).
-
-Sign-up / create an account.
-
-Get your label-studio API KEY (acces token). Somewhere in 2025, Label Studio have changed their authorization / tokens methods. But FiftyOne still uses the old method.<br>
-So you first need to go to `Organization > API Tokens Settings` and activate `Legacy Tokens`. <br>
-Then go to your `account & settings` page, go to `Legacy Token` section and copy the `Access Token`, and paste it inside the file [label_studio_image/label_studio_secrets.env](label_studio_image/label_studio_secrets.env)
-
-```
-LABELSTUDIO_API_KEY="PLEASE PASTE YOUR LABEL STUDIO ACCESS TOKEN HERE, WITHIN THE DOUBLE QUOTES"
-```
-
-Stop the containers (e.g. CTRL+C in the terminal you upped the containers, or using Docker Desktop).
-
-Restart the containers (see docker compose command above) so that FiftyOne environment is updated.
-
-## Usage
-
-Start docker.
-
-Start the containers with the following commands : 
-
-Build and start the containers with the following command : 
-
- * If you have GPU access : 
-   * `./start_gpu.sh`
- * Otherwise, for CPU : 
-   * `./start_cpu.sh` 
-
-Or restart it from docker desktop, as you prefere.
-
-If you use Windows, you can execute the shell scripts using GitBash.
+Please make sure that you have installed and started the containers and composition (see dedicated paragraphs above).
 
 Create a subfolder inside folder `local_images/` with the name of your project. E.g. `local_images/myproject`. Place your images within this folder.
 
-Open your web browser and and go to URL : http://localhost:5151/.
-to use the [FiftyOne App](https://docs.voxel51.com/user_guide/app.html).
+Open your web browser and and go to URL : http://localhost:5151/ to use the [FiftyOne App](https://docs.voxel51.com/user_guide/app.html).
 
 If you don't have any dataset yet, you can create one by clicking on link on the webpage.
 TODO : Screenshot when creating a dataset for the first time.
@@ -255,7 +262,7 @@ Same as for label-studio container, but instead you may run :
 
 #### For other containers
 
-You can use Visual Studio remote connexion on a `Dev Container`. Or `Docker Desktop`.
+You can use Visual Studio Code remote connexion on a `Dev Container`. Or `Docker Desktop`.
 Connect on the container you want to play with (let's say `img_annotations_fiftyone` ).
 Inside a container terminal, go to relevant folder. E.g. `/home/local_images/` , then type
 
