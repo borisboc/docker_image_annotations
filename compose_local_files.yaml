@@ -1,6 +1,7 @@
 services:
   #source :https://hub.docker.com/r/heartexlabs/label-studio
   label_studio:
+    profiles: [cpu, gpu, label-studio]
     image: img_annotations/label_studio_with_deps
     build: 
       context: ./label_studio_image
@@ -19,7 +20,7 @@ services:
       - img_annotations_network         
 
   sa2_label_studio_cpu:
-    profiles: [cpu]
+    profiles: [cpu, cpu-sa2-label-studio]
     container_name: img-annotations-sa2-label-studio
     extends:
       file: label_studio_sa2_image/sa2_label_studio.yaml
@@ -30,7 +31,7 @@ services:
       - DEVICE=cpu
 
   sa2_label_studio_gpu:
-    profiles: [gpu]
+    profiles: [gpu, gpu-sa2-label-studio]
     container_name: img-annotations-sa2-label-studio
     extends:
       file: label_studio_sa2_image/sa2_label_studio.yaml
@@ -48,7 +49,7 @@ services:
               capabilities: [gpu]
 
   fiftyone_cpu:
-    profiles: [cpu]
+    profiles: [cpu, cpu-fiftyone]
     container_name: img-annotations-fiftyone #use characters that are valid for URL. See remarks above
     extends:
       file: fiftyone_image/fiftyone_compose.yaml
@@ -57,7 +58,7 @@ services:
       - img_annotations_network
 
   fiftyone_gpu:
-    profiles: [gpu]
+    profiles: [gpu, gpu-fiftyone]
     container_name: img-annotations-fiftyone #use characters that are valid for URL. See remarks above
     extends:
       file: fiftyone_image/fiftyone_compose.yaml
@@ -73,6 +74,7 @@ services:
               capabilities: [gpu]      
 
   mongodb:
+    profiles: [cpu, gpu, mongodb]
     image: mongo
     container_name: img-annotations-mongodb #use characters that are valid for URL. See remarks above
     env_file:

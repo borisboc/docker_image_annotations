@@ -118,6 +118,29 @@ python config_manager.py --profile cpu
 python config_manager.py --profile gpu
 ```
 
+`cpu` will start all containers using CPU processor.
+
+`gpu` will start all containers using GPU processor.
+
+
+`--profile` (or simply `-p`) argument is a list : you can concatenate several profile to create your own custom network of containers.
+
+For instance, if you just want to start FiftyOne and your mongodb server (where your FiftyOne datasets are stored) :
+
+```bash
+# Just starting fiftyone and mongodb in the compose, thanks to profiles
+python config_manager.py --profile mongodb cpu-fiftyone
+```
+
+What to know which profiles are available, here is how to list :
+
+```bash
+# List available profiles in the compose file
+python config_manager.py --list-profiles
+```
+
+
+
 **Advanced options:**
 ```bash
 # Use a different compose file
@@ -128,9 +151,6 @@ python config_manager.py --profile cpu --env-var "CUSTOM_MOUNT=/path/to/data"
 
 # Pass additional arguments to docker compose (like --build)
 python config_manager.py --profile cpu --extra-args --build
-
-# List available profiles in the compose file
-python config_manager.py --list-profiles
 ```
 
 **Advantages of the Python method:**
