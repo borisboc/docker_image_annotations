@@ -84,7 +84,8 @@ if __name__ == "__main__":
     parser.set_defaults(skip_already=True)
     parser.add_argument(
         "--size",
-        type=tuple[int],
+        type=int,
+        nargs="+",
         default=(-1, 128),
         help="Size of the thumbnail. Put -1 to one dimension if you want to keep ratio",
     )
