@@ -195,6 +195,10 @@ Then press execute.
 
 From now you have a dataset created, and some samples. You can see the subparagraphs of this readme depending on what you want to do next.
 
+<br>
+
+You need more tips and tricks specific to FiftyOne ? Please look at the dedicated file : [TIPS_FIFTYONE](TIPS_FIFTYONE.md)
+
 ### Workflow for annotations
 
 CAUTION : annotation name (also call `anno_key`) cannot start with numbers ! E.g. `20250724_ann_key` is **NOT** valid !
@@ -202,6 +206,11 @@ CAUTION : annotation name (also call `anno_key`) cannot start with numbers ! E.g
 And then request for annotations with Label-Studio backend.
 
 TODO : finish this paragraph and add screenshots.
+
+<br>
+
+You need more tips and tricks specific to FiftyOne ? Please look at the dedicated file : [TIPS_FIFTYONE](TIPS_FIFTYONE.md)
+
 
 ### Using Segment Anything Model 2 during annotations
 
@@ -258,6 +267,11 @@ export FIFTYONE_DATABASE_URI=mongodb://YourMongoDbUsernameHere:YourMongoDbPasswo
 This is what is done in file [fiftyone_image/fiftyone.env](fiftyone_image/fiftyone.env)
 
 For further details, please refere to [FiftyOne : configuring mongodb connection](https://docs.voxel51.com/user_guide/config.html#configuring-mongodb-connection).
+
+<br/>
+
+You need more tips and tricks specific to FiftyOne ? Please look at the dedicated file : [TIPS_FIFTYONE](TIPS_FIFTYONE.md)
+
 
 ### Accessing a container, program with jupyter notebook
 
