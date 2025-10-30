@@ -1,0 +1,1 @@
+Bound volume for label-studio container. See compose file.
