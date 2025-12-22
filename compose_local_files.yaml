@@ -9,6 +9,22 @@ x-services:
               count: all
               capabilities: [gpu]    
 
+x-sa2_label_studio: &service-sa2-label-studio
+    container_name: img-ann-sa2-label-studio
+    extends:
+      file: label_studio_sa2_image/sa2_label_studio.yaml
+      service: sa2_label_studio
+    networks:
+      - img-ann-net      
+
+x-fiftyone: &service-fiftyone
+    container_name: img-ann-fiftyone #use characters that are valid for URL. See remarks above
+    extends:
+      file: fiftyone_image/fiftyone_compose.yaml
+      service: fiftyone
+    networks:
+      - img-ann-net
+
 services:
   #source :https://hub.docker.com/r/heartexlabs/label-studio
   label_studio:
@@ -32,45 +48,23 @@ services:
 
   sa2_label_studio_cpu:
     profiles: [cpu, cpu-sa2-label-studio]
-    container_name: img-ann-sa2-label-studio
-    extends:
-      file: label_studio_sa2_image/sa2_label_studio.yaml
-      service: sa2_label_studio
-    networks:
-      - img-ann-net      
     environment:
       - DEVICE=cpu
+    <<: *service-sa2-label-studio
 
   sa2_label_studio_gpu:
     profiles: [gpu, gpu-sa2-label-studio]
-    container_name: img-ann-sa2-label-studio
-    extends:
-      file: label_studio_sa2_image/sa2_label_studio.yaml
-      service: sa2_label_studio
-    networks:
-      - img-ann-net      
     environment:
-      - DEVICE=cuda      
-    <<: *deploy-gpu
+      - DEVICE=cuda    
+    <<: [*service-sa2-label-studio, *deploy-gpu]          
 
   fiftyone_cpu:
     profiles: [cpu, cpu-fiftyone]
-    container_name: img-ann-fiftyone #use characters that are valid for URL. See remarks above
-    extends:
-      file: fiftyone_image/fiftyone_compose.yaml
-      service: fiftyone
-    networks:
-      - img-ann-net
+    <<: *service-fiftyone
 
   fiftyone_gpu:
     profiles: [gpu, gpu-fiftyone]
-    container_name: img-ann-fiftyone #use characters that are valid for URL. See remarks above
-    extends:
-      file: fiftyone_image/fiftyone_compose.yaml
-      service: fiftyone
-    networks:
-      - img-ann-net      
-    <<: *deploy-gpu  
+    <<: [*service-fiftyone, *deploy-gpu]          
 
   mongodb:
     profiles: [cpu, gpu, mongodb]
