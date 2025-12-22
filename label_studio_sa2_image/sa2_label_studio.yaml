@@ -10,4 +10,4 @@ services:
     ports:
       - 9090:9090
     volumes:
-      - "../label_studio_sa2_data:/data"
+      - ../label_studio_sa2_data:/data
