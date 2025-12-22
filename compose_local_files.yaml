@@ -82,18 +82,9 @@ services:
     ports:
       - 27017:27017
     volumes:
-      - type: bind
-        source: ./mongodb_data
-        target: /data/db   
+      - ./mongodb_data:/data/db  
     networks:
       - img-ann-net
-
-volumes:
-  label_studio_data:
-  label_studio_sa2_data:
-  local_images:
-  fiftyone_data:
-  mongodb_data:
 
 networks:
   img-ann-net:
