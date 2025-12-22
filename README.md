@@ -101,7 +101,7 @@ Start the containers with the following command :
  * Otherwise, for CPU : 
    * `./start_cpu.sh` 
 
-You can pass extra arguments for docker, for instance : `./start_gpu.sh --build`.
+You can pass extra arguments for docker, for instance : `./start_gpu.sh -d`, `./start_gpu.sh --build`, etc.
 
 If you use Windows, you can execute the shell scripts using GitBash.
 
@@ -139,6 +139,12 @@ What to know which profiles are available, here is how to list :
 python config_manager.py --list-profiles
 ```
 
+And for all available arguments with default values :
+
+```bash
+# Print help including default values for arguments
+python config_manager.py --help
+```
 
 
 **Advanced options:**
@@ -224,19 +230,19 @@ Concerning the configuration in the menu `Settings > Model`, in our case, please
 http://img-ann-sa2-label-studio:9090
 ```
 
-And toogle ON the parameter `Interactive preannotations`.
+And toggle ON the parameter `Interactive preannotations`.
 
-For further details, please refere to [label-studio-ml-backend github : using sam2](https://github.com/HumanSignal/label-studio-ml-backend/tree/master/label_studio_ml/examples/segment_anything_2_image#using-sam2-with-label-studio-for-image-annotation)
+For further details, please refer to [label-studio-ml-backend github : using sam2](https://github.com/HumanSignal/label-studio-ml-backend/tree/master/label_studio_ml/examples/segment_anything_2_image#using-sam2-with-label-studio-for-image-annotation)
 
-Remark : for keypoints, add a "bellong to" point with left click, and a "does not bellong to" with ALT + left click. 
+Remark : for keypoints, add a "belong to" point with left click, and a "does not belong to" with ALT + left click. 
 
 For the labeling interface, you use SAM2 with keypoints or rectangle, you can base it on the example in [labeling_interface_sam2.xml](PythonUtils/labeling_interface_sam2.xml)
 
 ### Connect another instance of FiftyOne to the same database
 
-Because the MongoDB database used by FiftyOne runs in its own container, and ports are bound, it is fine to connect another instance of FifytOne to this database. The typical usecase is that you develop a neural network on your host machine, or inside another container, and you want to access the samples in one of your FiftyOne dataset.
+Because the MongoDB database used by FiftyOne runs in its own container, and ports are bound, it is fine to connect another instance of FiftyOne to this database. The typical use case is that you develop a neural network on your host machine, or inside another container, and you want to access the samples in one of your FiftyOne dataset.
 
-Do do so, in the session running your own FiftyOne instance, you can either modify the fiftyone congiguration json file, or declare the environment variable `FIFTYONE_DATABASE_URI`, which is the prefered option explained bellow.
+Do do so, in the session running your own FiftyOne instance, you can either modify the fiftyone configuration json file, or declare the environment variable `FIFTYONE_DATABASE_URI`, which is the preferred option explained bellow.
 
 In your session, please export : 
 
@@ -247,7 +253,7 @@ export FIFTYONE_DATABASE_URI=mongodb://YourMongoDbUsernameHere:YourMongoDbPasswo
 Please set the correct values for your mongodb username and password. They must match the content in file [fiftyone_image/fiftyone_secrets.env](fiftyone_image/fiftyone_secrets.env)
 
 
-Once exported, you can run all your python codes with FifytOne and access the FifytOne datasets. E.g. :
+Once exported, you can run all your python codes with FiftyOne and access the FiftyOne datasets. E.g. :
 
 ``` python
 import fiftyone as fo
@@ -258,13 +264,22 @@ A convenient way is to save this command with the correct connection details wit
 
 <br/>
 
-If your FiftyOne session is within another container of the same docker compose (e.g. you have edited your own docker compose file instead of `compose_local_files.yaml`), within your own container, please use the mongodb container name. E.g. :
+If your FiftyOne session is within another container, please :
+ * place your container on the same docker network, i.e. `img-ann-net`. If you are on a different docker compose file, you have to declare this network as external. Here is the snippet : 
 
+```
+networks:
+  img-ann-net:
+    name: img-ann-net
+    external: true
+```
+
+ * use the mongodb container name. E.g. :
 ```
 export FIFTYONE_DATABASE_URI=mongodb://YourMongoDbUsernameHere:YourMongoDbPasswordHere@img-ann-mongodb:27017
 ```
-
 This is what is done in file [fiftyone_image/fiftyone.env](fiftyone_image/fiftyone.env)
+
 
 For further details, please refere to [FiftyOne : configuring mongodb connection](https://docs.voxel51.com/user_guide/config.html#configuring-mongodb-connection).
 
@@ -297,7 +312,7 @@ Same as for label-studio container, but instead you may run :
 #### For other containers
 
 You can use Visual Studio Code remote connexion on a `Dev Container`. Or `Docker Desktop`.
-Connect on the container you want to play with (let's say `img_annotations_fiftyone` ).
+Connect on the container you want to play with (let's say `img-ann-fiftyone` ).
 Inside a container terminal, go to relevant folder. E.g. `/home/local_images/` , then type
 
 ```
