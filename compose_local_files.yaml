@@ -1,3 +1,14 @@
+
+x-services:
+  x-deploy-gpu: &deploy-gpu
+    deploy:
+      resources:
+        reservations:
+          devices:
+            - driver: nvidia
+              count: all
+              capabilities: [gpu]    
+
 services:
   #source :https://hub.docker.com/r/heartexlabs/label-studio
   label_studio:
@@ -40,13 +51,7 @@ services:
       - img-ann-net      
     environment:
       - DEVICE=cuda      
-    deploy:
-      resources:
-        reservations:
-          devices:
-            - driver: nvidia
-              count: all
-              capabilities: [gpu]
+    <<: *deploy-gpu
 
   fiftyone_cpu:
     profiles: [cpu, cpu-fiftyone]
@@ -65,13 +70,7 @@ services:
       service: fiftyone
     networks:
       - img-ann-net      
-    deploy:
-      resources:
-        reservations:
-          devices:
-            - driver: nvidia
-              count: all
-              capabilities: [gpu]      
+    <<: *deploy-gpu  
 
   mongodb:
     profiles: [cpu, gpu, mongodb]
