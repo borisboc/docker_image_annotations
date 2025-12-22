@@ -131,7 +131,10 @@ def run_configuration(
 
 def main():
     """Main function to parse arguments and run configuration"""
-    parser = argparse.ArgumentParser(description="Docker Configuration Manager")
+    parser = argparse.ArgumentParser(
+        description="Docker Configuration Manager",
+        formatter_class=argparse.ArgumentDefaultsHelpFormatter,
+    )
 
     # Profile selection
     parser.add_argument(
