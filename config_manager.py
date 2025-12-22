@@ -71,10 +71,10 @@ def run_configuration(
     """
     # Containers to clean up before starting
     containers_to_clean = [
-        "img-annotations-sa2-label-studio",
-        "img-annotations-fiftyone",
-        "img-annotations-label-studio",
-        "img-annotations-mongodb",
+        "img-ann-sa2-label-studio",
+        "img-ann-fiftyone",
+        "img-ann-label-studio",
+        "img-ann-mongodb",
     ]
 
     print(f"Cleaning up containers...")
@@ -170,7 +170,7 @@ def main():
 
     # Project name
     parser.add_argument(
-        "--project", "-n", default="image_annotations", help="Docker project name"
+        "--project", "-n", default="img-ann", help="Docker project name"
     )
 
     # List available profiles

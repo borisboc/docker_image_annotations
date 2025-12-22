@@ -55,13 +55,13 @@ If you use Windows, you can execute the shell scripts using GitBash.
 Check that the fiftyone plugins are installed. Sometimes, they are not and currently I can't say why. See this [issue](https://github.com/borisboc/docker_image_annotations/issues/1).
 
 ```bash
-docker exec -it img-annotations-fiftyone fiftyone plugins list
+docker exec -it img-ann-fiftyone fiftyone plugins list
 ```
 
 If you don't see the plugins in the output (e.g. @voxel51/io @voxel51/annotation etc.), please run
 
 ```bash
-docker exec -it img-annotations-fiftyone fiftyone plugins download https://github.com/voxel51/fiftyone-plugins --plugin-names @voxel51/annotation @voxel51/brain @voxel51/dashboard @voxel51/evaluation @voxel51/io @voxel51/indexes @voxel51/runs @voxel51/utils @voxel51/zoo
+docker exec -it img-ann-fiftyone fiftyone plugins download https://github.com/voxel51/fiftyone-plugins --plugin-names @voxel51/annotation @voxel51/brain @voxel51/dashboard @voxel51/evaluation @voxel51/io @voxel51/indexes @voxel51/runs @voxel51/utils @voxel51/zoo
 ```
 
 Open your web browser and and go to URL : http://localhost:8080/.
@@ -221,7 +221,7 @@ You can find a [youtube video tutorial](https://youtu.be/FTg8P8z4RgY?feature=sha
 Concerning the configuration in the menu `Settings > Model`, in our case, please set the following Backend URL : 
 
 ```
-http://img-annotations-sa2-label-studio:9090
+http://img-ann-sa2-label-studio:9090
 ```
 
 And toogle ON the parameter `Interactive preannotations`.
@@ -261,7 +261,7 @@ A convenient way is to save this command with the correct connection details wit
 If your FiftyOne session is within another container of the same docker compose (e.g. you have edited your own docker compose file instead of `compose_local_files.yaml`), within your own container, please use the mongodb container name. E.g. :
 
 ```
-export FIFTYONE_DATABASE_URI=mongodb://YourMongoDbUsernameHere:YourMongoDbPasswordHere@img-annotations-mongodb:27017
+export FIFTYONE_DATABASE_URI=mongodb://YourMongoDbUsernameHere:YourMongoDbPasswordHere@img-ann-mongodb:27017
 ```
 
 This is what is done in file [fiftyone_image/fiftyone.env](fiftyone_image/fiftyone.env)

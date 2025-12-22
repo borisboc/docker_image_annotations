@@ -5,7 +5,7 @@ services:
     image: img_annotations/label_studio_with_deps
     build: 
       context: ./label_studio_image
-    container_name: img-annotations-label-studio #use characters that are valid for URL. For instance, this example will FAIL : curl -X GET http://img_annotations_label_studio:8080/api/projects/ -H 'Authorization: Token $MYTOKEN'
+    container_name: img-ann-label-studio #use characters that are valid for URL. For instance, this example will FAIL : curl -X GET http://img_annotations_label_studio:8080/api/projects/ -H 'Authorization: Token $MYTOKEN'
     env_file:
       - path: ./label_studio_image/label_studio_secrets.env #set LABELSTUDIO_API_KEY in this file
       - path: ./label_studio_image/label_studio.env
@@ -21,7 +21,7 @@ services:
 
   sa2_label_studio_cpu:
     profiles: [cpu, cpu-sa2-label-studio]
-    container_name: img-annotations-sa2-label-studio
+    container_name: img-ann-sa2-label-studio
     extends:
       file: label_studio_sa2_image/sa2_label_studio.yaml
       service: sa2_label_studio
@@ -32,7 +32,7 @@ services:
 
   sa2_label_studio_gpu:
     profiles: [gpu, gpu-sa2-label-studio]
-    container_name: img-annotations-sa2-label-studio
+    container_name: img-ann-sa2-label-studio
     extends:
       file: label_studio_sa2_image/sa2_label_studio.yaml
       service: sa2_label_studio
@@ -50,7 +50,7 @@ services:
 
   fiftyone_cpu:
     profiles: [cpu, cpu-fiftyone]
-    container_name: img-annotations-fiftyone #use characters that are valid for URL. See remarks above
+    container_name: img-ann-fiftyone #use characters that are valid for URL. See remarks above
     extends:
       file: fiftyone_image/fiftyone_compose.yaml
       service: fiftyone
@@ -59,7 +59,7 @@ services:
 
   fiftyone_gpu:
     profiles: [gpu, gpu-fiftyone]
-    container_name: img-annotations-fiftyone #use characters that are valid for URL. See remarks above
+    container_name: img-ann-fiftyone #use characters that are valid for URL. See remarks above
     extends:
       file: fiftyone_image/fiftyone_compose.yaml
       service: fiftyone
@@ -76,7 +76,7 @@ services:
   mongodb:
     profiles: [cpu, gpu, mongodb]
     image: mongo
-    container_name: img-annotations-mongodb #use characters that are valid for URL. See remarks above
+    container_name: img-ann-mongodb #use characters that are valid for URL. See remarks above
     env_file:
       - path: ./fiftyone_image/fiftyone_secrets.env #set MONGO_INITDB_ROOT_USERNAME and MONGO_INITDB_ROOT_PASSWORD in this file
     ports:
