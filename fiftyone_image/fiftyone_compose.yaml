@@ -1,7 +1,7 @@
   services:
 
     fiftyone:
-      image: img_annotations/fiftyone_with_deps
+      image: img-ann/fiftyone
       build:
         context: ../fiftyone_image
         args:

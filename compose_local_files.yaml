@@ -2,7 +2,7 @@ services:
   #source :https://hub.docker.com/r/heartexlabs/label-studio
   label_studio:
     profiles: [cpu, gpu, label-studio]
-    image: img_annotations/label_studio_with_deps
+    image: img-ann/label-studio
     build: 
       context: ./label_studio_image
     container_name: img-ann-label-studio #use characters that are valid for URL. For instance, this example will FAIL : curl -X GET http://img_annotations_label_studio:8080/api/projects/ -H 'Authorization: Token $MYTOKEN'
@@ -17,7 +17,7 @@ services:
       - ./PythonUtils:/home/PythonUtils
       - ./local_images:/home/local_images
     networks:
-      - img_annotations_network         
+      - img-ann-net         
 
   sa2_label_studio_cpu:
     profiles: [cpu, cpu-sa2-label-studio]
@@ -26,7 +26,7 @@ services:
       file: label_studio_sa2_image/sa2_label_studio.yaml
       service: sa2_label_studio
     networks:
-      - img_annotations_network      
+      - img-ann-net      
     environment:
       - DEVICE=cpu
 
@@ -37,7 +37,7 @@ services:
       file: label_studio_sa2_image/sa2_label_studio.yaml
       service: sa2_label_studio
     networks:
-      - img_annotations_network      
+      - img-ann-net      
     environment:
       - DEVICE=cuda      
     deploy:
@@ -55,7 +55,7 @@ services:
       file: fiftyone_image/fiftyone_compose.yaml
       service: fiftyone
     networks:
-      - img_annotations_network
+      - img-ann-net
 
   fiftyone_gpu:
     profiles: [gpu, gpu-fiftyone]
@@ -64,7 +64,7 @@ services:
       file: fiftyone_image/fiftyone_compose.yaml
       service: fiftyone
     networks:
-      - img_annotations_network      
+      - img-ann-net      
     deploy:
       resources:
         reservations:
@@ -86,7 +86,7 @@ services:
         source: ./mongodb_data
         target: /data/db   
     networks:
-      - img_annotations_network
+      - img-ann-net
 
 volumes:
   label_studio_data:
@@ -96,6 +96,6 @@ volumes:
   mongodb_data:
 
 networks:
-  img_annotations_network:
-    name: img_annotations_network  # Explicit name so that you can connect other containers on this network
+  img-ann-net:
+    name: img-ann-net  # Explicit name so that you can connect other containers on this network
     driver: bridge
