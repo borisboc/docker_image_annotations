@@ -5,8 +5,8 @@ services:
     image: img-ann/sa2-label-studio
     build: ../label_studio_sa2_image
     env_file:
-      - path: ../label_studio_image/label_studio_secrets.env #set LABELSTUDIO_API_KEY in this file
-      - path: ../label_studio_sa2_image/sa2_label_studio.env      
+      - path: ../.env #set LABELSTUDIO_API_KEY in this file
+      - path: ./sa2_label_studio.env      
     ports:
       - 9090:9090
     volumes:

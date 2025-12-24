@@ -34,7 +34,7 @@ services:
       context: ./label_studio_image
     container_name: img-ann-label-studio #use characters that are valid for URL. For instance, this example will FAIL : curl -X GET http://img_annotations_label_studio:8080/api/projects/ -H 'Authorization: Token $MYTOKEN'
     env_file:
-      - path: ./label_studio_image/label_studio_secrets.env #set LABELSTUDIO_API_KEY in this file
+      - path: ./.env #set LABELSTUDIO_API_KEY in this file
       - path: ./label_studio_image/label_studio.env
     ports:
       - 8080:8080
@@ -71,7 +71,7 @@ services:
     image: mongo
     container_name: img-ann-mongodb #use characters that are valid for URL. See remarks above
     env_file:
-      - path: ./fiftyone_image/fiftyone_secrets.env #set MONGO_INITDB_ROOT_USERNAME and MONGO_INITDB_ROOT_PASSWORD in this file
+      - path: ./.env #set MONGO_INITDB_ROOT_USERNAME and MONGO_INITDB_ROOT_PASSWORD in this file
     ports:
       - 27017:27017
     volumes:

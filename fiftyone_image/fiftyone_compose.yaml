@@ -7,9 +7,8 @@
         args:
           BUILD_PROFILE: ${IMG_ANNOTATIONS_BUILD_PROFILE}
       env_file:
-        - path: ../label_studio_image/label_studio_secrets.env #set LABELSTUDIO_API_KEY in this file
-        - path: ../fiftyone_image/fiftyone_secrets.env
-        - path: ../fiftyone_image/fiftyone.env 
+        - path: ../.env #set LABELSTUDIO_API_KEY in this file
+        - path: ./fiftyone.env 
       ports:
         - 5151:5151
         - 5152:5152 #for the jupyter notebook running in this container      
