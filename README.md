@@ -35,7 +35,13 @@ Clone this repository with the following command :
 git clone https://github.com/borisboc/docker_image_annotations.git && cd docker_image_annotations
 ```
 
-Edit the file `fiftyone_image/fiftyone_secrets.env`. Change the values of the 2 environment variables : 
+Copy the example file [.env.example](.env.example) into a `.env` file : 
+
+```shell
+cp .env.example .env
+```
+
+Edit the copied file `.env`. At first, just change the values of the 2 environment variables : 
 ```
 MONGO_INITDB_ROOT_USERNAME=YourMongoDbUsernameHere
 MONGO_INITDB_ROOT_PASSWORD=YourMongoDbPasswordHere
@@ -67,17 +73,17 @@ docker exec -it img-ann-fiftyone fiftyone plugins download https://github.com/vo
 Open your web browser and and go to URL : http://localhost:8080/.
 Then log in [label-studio](https://labelstud.io/).
 
-Sign-up / create an account.
+Sign-up / create an account (you have to create an account at first start if you started from empty label_studio_data volume).
 
 Get your label-studio API KEY (acces token). Somewhere in 2025, Label Studio have changed their authorization / tokens methods. But FiftyOne still uses the old method.<br>
 So you first need to go to `Organization > API Tokens Settings` and activate `Legacy Tokens`. <br>
-Then go to your `account & settings` page, go to `Legacy Token` section and copy the `Access Token`, and paste it inside the file [label_studio_image/label_studio_secrets.env](label_studio_image/label_studio_secrets.env)
+Then go to your `account & settings` page, go to `Legacy Token` section and copy the `Access Token`, and paste it inside the file `.env`.
 
 ```
 LABELSTUDIO_API_KEY="PLEASE PASTE YOUR LABEL STUDIO ACCESS TOKEN HERE, WITHIN THE DOUBLE QUOTES"
 ```
 
-Stop the containers (e.g. CTRL+C in the terminal you upped the containers, or using Docker Desktop).
+Stop the containers. Please refer to dedicated paragraph bellow.
 
 Restart the containers (see docker compose command above) so that FiftyOne environment is updated.
 
@@ -166,6 +172,13 @@ python config_manager.py --profile cpu --extra-args --build
 - Modular: Handles different compose files and profiles
 
 
+## Stopping the containers
+
+To stop the containers you can do this : 
+ * CTRL+C in the terminal you upped the containers, since they are not started detached by default
+ * calling `docker compose -f compose_local_files.yaml -p img-ann --profile gpu down` (assuming you started with the `gpu` profile, please adapt to your profile)
+ * using Docker Desktop
+ * using VS Code extension [Container Tools](https://marketplace.visualstudio.com/items?itemName=ms-azuretools.vscode-containers)
 
 ## Usage : how to use the different services
 
