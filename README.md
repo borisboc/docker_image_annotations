@@ -58,18 +58,6 @@ Build and start the containers with the following command :
 
 If you use Windows, you can execute the shell scripts using GitBash.
 
-Check that the fiftyone plugins are installed. Sometimes, they are not and currently I can't say why. See this [issue](https://github.com/borisboc/docker_image_annotations/issues/1).
-
-```bash
-docker exec -it img-ann-fiftyone fiftyone plugins list
-```
-
-If you don't see the plugins in the output (e.g. @voxel51/io @voxel51/annotation etc.), please run
-
-```bash
-docker exec -it img-ann-fiftyone fiftyone plugins download https://github.com/voxel51/fiftyone-plugins --plugin-names @voxel51/annotation @voxel51/brain @voxel51/dashboard @voxel51/evaluation @voxel51/io @voxel51/indexes @voxel51/runs @voxel51/utils @voxel51/zoo
-```
-
 Open your web browser and and go to URL : http://localhost:8080/.
 Then log in [label-studio](https://labelstud.io/).
 
@@ -332,6 +320,16 @@ Inside a container terminal, go to relevant folder. E.g. `/home/local_images/` ,
 jupyter notebook --ip 0.0.0.0 --no-browser --allow-root
 ```
 Click on the link provided in the terminal output to start a notebook.
+
+
+
+### Managing Fiftyone one plugins
+
+Once the container started, you can fully call the `fiftyone plugins` CLI on the container, for instance :
+
+```bash
+docker exec -it img-ann-fiftyone fiftyone plugins list
+```
 
 
 

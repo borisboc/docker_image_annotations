@@ -1,1 +1,1 @@
-Bound volume for FiftyOne container. See compose file.
+Bound volume for FiftyOne container. See compose file (fiftyone_image/fiftyone_compose.yaml).
