@@ -43,7 +43,8 @@ def import_fiftyone_dataset(
 if __name__ == "__main__":
 
     parser = argparse.ArgumentParser(
-        description="Import a fiftyone dataset to from a folder or 7z archive, using the fiftyone formats (see o.types.FiftyOneDataset)"
+        description="Import a fiftyone dataset to from a folder or 7z archive, using the fiftyone formats (see o.types.FiftyOneDataset)",
+        formatter_class=argparse.ArgumentDefaultsHelpFormatter,
     )
     parser.add_argument(
         "dataset_name",
