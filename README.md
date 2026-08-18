@@ -176,6 +176,8 @@ Create a subfolder inside folder `local_images/` with the name of your project. 
 
 Open your web browser and and go to URL : http://localhost:5151/ to use the [FiftyOne App](https://docs.voxel51.com/user_guide/app.html).
 
+### Create your FiftyOne dataset from web app
+
 If you don't have any dataset yet, you can create one by clicking on link on the webpage.
 TODO : Screenshot when creating a dataset for the first time.
 
@@ -205,6 +207,13 @@ From now you have a dataset created, and some samples. You can see the subparagr
 <br>
 
 You need more tips and tricks specific to FiftyOne ? Please look at the dedicated file : [TIPS_FIFTYONE](TIPS_FIFTYONE.md)
+
+### Import your FiftyOne dataset from script
+
+See [TIPS_FIFTYONE > additional-exports / imports](TIPS_FIFTYONE.md#additional-exportsimports)
+
+This is assuming you have an already exported dataset.
+
 
 ### Workflow for annotations
 

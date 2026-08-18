@@ -1,5 +1,39 @@
 # Tips and Tricks for FiftyOne
 
+## Additional exports/imports
+
+Some python scripts have been developed to simplify / automate the import / export of Fiftyone dataset in there own format, with file compression / decompression.
+
+
+
+To Export : 
+
+```shell
+docker exec -it img-ann-fiftyone python3 /home/PythonUtils/export_fiftyone_dataset.py DATASET_NAME
+```
+
+In this case the exported .7z archive my in the temp folder. You may want another folder. So pass `-e` argument : 
+
+
+```shell
+docker exec -it img-ann-fiftyone python3 /home/PythonUtils/export_fiftyone_dataset.py DATASET_NAME -e /home/local_images/exports/DATASET_NAME
+```
+
+
+To import : 
+
+```shell
+docker exec -it img-ann-fiftyone python3 /home/PythonUtils/import_fiftyone_dataset.py DATASET_NAME DATASET_DIR_OR_7Z
+```
+
+For example : 
+
+```shell
+docker exec -it img-ann-fiftyone python3 /home/PythonUtils/import_fiftyone_dataset.py DATASET_NAME /home/local_images/exports/DATASET_NAME.7z
+```
+
+
+
 ## The View bar of the Web App
 
 The view bar of the Web App is really handy because you can create your custom (and complex) filtering and staging requests directly in the Web App. Rather than using the Python SDK and creating a saved view.
