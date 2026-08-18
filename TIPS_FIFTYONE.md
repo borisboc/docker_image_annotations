@@ -32,6 +32,20 @@ For example :
 docker exec -it img-ann-fiftyone python3 /home/PythonUtils/import_fiftyone_dataset.py DATASET_NAME /home/local_images/exports/DATASET_NAME.7z
 ```
 
+## Recursively adding images as samples
+
+Fiftyone has some tools to imports. And also the method `from_images_patt`. If this does not work well for you, you can also you the script [recursive_add_images_to_fifytone.py](PythonUtils/recursive_add_images_to_fifytone.py)
+
+
+```shell
+docker exec -it img-ann-fiftyone python3 /home/PythonUtils/recursive_add_images_to_fifytone.py DATASET_NAME TRUNK_FOLDER GLOB_PATTERN
+```
+
+For example : 
+
+```shell
+docker exec -it img-ann-fiftyone python3 /home/PythonUtils/recursive_add_images_to_fifytone.py aff260707 /home/local_images/Projects/aff260707 *.png
+```
 
 
 ## The View bar of the Web App

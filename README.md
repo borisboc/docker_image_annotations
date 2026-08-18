@@ -208,6 +208,11 @@ From now you have a dataset created, and some samples. You can see the subparagr
 
 You need more tips and tricks specific to FiftyOne ? Please look at the dedicated file : [TIPS_FIFTYONE](TIPS_FIFTYONE.md)
 
+### Import recursive import images and add to FiftyOne dataset
+
+If you struggle with the proposal of previous paragraph, you may consider using the script descriped in [TIPS_FIFTYONE](TIPS_FIFTYONE.md#recursively-adding-images-as-samples).
+
+
 ### Import your FiftyOne dataset from script
 
 See [TIPS_FIFTYONE > additional-exports / imports](TIPS_FIFTYONE.md#additional-exportsimports)
