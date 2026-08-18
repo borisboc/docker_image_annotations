@@ -32,6 +32,8 @@ services:
     image: img-ann/label-studio
     build: 
       context: ./label_studio_image
+      args:
+        LABELSTUDIO_TAG: ${LABELSTUDIO_TAG}
     container_name: img-ann-label-studio #use characters that are valid for URL. For instance, this example will FAIL : curl -X GET http://img_annotations_label_studio:8080/api/projects/ -H 'Authorization: Token $MYTOKEN'
     env_file:
       - path: ./.env #set LABELSTUDIO_API_KEY in this file
@@ -68,7 +70,7 @@ services:
 
   mongodb:
     profiles: [cpu, gpu, mongodb]
-    image: mongo
+    image: mongo:${MONGO_TAG}
     container_name: img-ann-mongodb #use characters that are valid for URL. See remarks above
     env_file:
       - path: ./.env #set MONGO_INITDB_ROOT_USERNAME and MONGO_INITDB_ROOT_PASSWORD in this file

@@ -1,5 +1,5 @@
-label_studio_sdk
-label_studio_converter
+label-studio-sdk
+label-studio-converter
 umap-learn>=0.5
 pycocotools
 jupyter

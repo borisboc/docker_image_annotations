@@ -6,6 +6,7 @@
         context: ../fiftyone_image
         args:
           BUILD_PROFILE: ${IMG_ANNOTATIONS_BUILD_PROFILE}
+          FIFTYONE_TAG: ${FIFTYONE_TAG}
       env_file:
         - path: ../.env #set LABELSTUDIO_API_KEY in this file
         - path: ./fiftyone.env 
