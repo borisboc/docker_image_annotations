@@ -156,10 +156,9 @@ def main():
     )
     parser.add_argument(
         "--build-profile",
-        "-bp",
         choices=["cpu", "gpu"],
         default=None,
-        type=Optional[str],
+        type=str,
         help="The build profile : cpu or gpu. If None, then it will be infered from the string(s) inside --profile argument",
     )
 
