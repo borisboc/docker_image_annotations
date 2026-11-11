@@ -17,7 +17,7 @@ If you don't want to run with privilege, you must run [docker in rootless mode](
 
 `docker context use rootless`  
 
-If you want the containers to have access to the NVIDIA GPUs please follow the instructions given in [docker : Access an NVIDIA GPU](https://docs.docker.com/engine/containers/resource_constraints/#gpu). Briefly, you will have to install NVIDIA driver and NVIDIA container toolkit. Once done, you should be able to successfully run the following command : 
+If you want the containers to have access to the NVIDIA GPUs please follow the instructions given in [docker : Access an NVIDIA GPU](https://docs.docker.com/engine/containers/gpu/). Briefly, you will have to install NVIDIA driver and NVIDIA container toolkit. Once done, you should be able to successfully run the following command : 
 
 `docker run --rm --runtime=nvidia --gpus all ubuntu nvidia-smi`
 
