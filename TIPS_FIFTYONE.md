@@ -90,4 +90,17 @@ Select `Match` operation and then paste the json code bellow:
 }
 ```
 
+## Generating thumbnails
 
+Images (as thumbnails) can be long to generate and load on Fiftyone web app, especially for high resolution images (e.g. 120Mpx). So you can precompute them with the script `compute_thumbnails.py` or its notebook version `compute_thumbnails.ipynb`.
+
+
+Here is an example : 
+
+```shell
+docker exec -it img-ann-fiftyone python3 /home/PythonUtils/compute_thumbnails.py DATASET_NAME /home/local_images/thumbnails --rel-dir /home/local_images --skip-already --size -1 128
+```
+
+Refresh web app with F5.
+
+You may adapt the thumbnail size. And to force to regenerate already generated thumbnails, please replace `--skip-already` with `--no-skip-already` 
